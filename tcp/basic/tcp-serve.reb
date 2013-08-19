@@ -1,6 +1,6 @@
 rebol [
-	title: "Basic TCP test server"
-	author: "Carl Sassenrath"
+    title: "Basic TCP test server"
+    author: "Carl Sassenrath"
 ]
 
 ;debug: :print
@@ -10,19 +10,19 @@ total: 0
 count: 0
 
 process-data: func [port /local len] [
-	if parse port/data [copy len 4 skip any skip] [
-		len: to integer! len
-		debug ["--- packet:" length? port/data "of" len]
-		either len <= length? port/data [
-			clear port/data
-			write port #{0f}
-			count: count + 1
-			total: total + len + 4
-			print [count round (total / 1024 / 1024) "MB"]
-		][
-			read port
-		]
-	]
+    if parse port/data [copy len 4 skip any skip] [
+        len: to integer! len
+        debug ["--- packet:" length? port/data "of" len]
+        either len <= length? port/data [
+            clear port/data
+            write port #{0f}
+            count: count + 1
+            total: total + len + 4
+            print [count round (total / 1024 / 1024) "MB"]
+        ][
+            read port
+        ]
+    ]
 ]
 
 new-event: func [event] [
